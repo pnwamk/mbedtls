@@ -427,6 +427,10 @@ static const oid_pk_alg_t oid_pk_alg[] =
         MBEDTLS_PK_RSA,
     },
     {
+        { ADD_LEN( MBEDTLS_OID_PKCS1_RSAES_OAEP ),      "id-RSAES-OAEP",   "RSAES-OAEP" },
+        MBEDTLS_PK_RSAES_OAEP,
+    },
+    {
         { ADD_LEN( MBEDTLS_OID_EC_ALG_UNRESTRICTED ),  "id-ecPublicKey",   "Generic EC key" },
         MBEDTLS_PK_ECKEY,
     },

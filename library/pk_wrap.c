@@ -187,6 +187,21 @@ const mbedtls_pk_info_t mbedtls_rsa_info = {
     rsa_free_wrap,
     rsa_debug,
 };
+
+const mbedtls_pk_info_t mbedtls_rsaes_oaep_info = {
+    MBEDTLS_PK_RSAES_OAEP,
+    "RSAES-OAEP",
+    rsa_get_bitlen,
+    rsa_can_do,
+    rsa_verify_wrap,
+    rsa_sign_wrap,
+    rsa_decrypt_wrap,
+    rsa_encrypt_wrap,
+    rsa_check_pair_wrap,
+    rsa_alloc_wrap,
+    rsa_free_wrap,
+    rsa_debug,
+};
 #endif /* MBEDTLS_RSA_C */
 
 #if defined(MBEDTLS_ECP_C)

@@ -96,6 +96,7 @@ typedef struct
 
 #if defined(MBEDTLS_RSA_C)
 extern const mbedtls_pk_info_t mbedtls_rsa_info;
+extern const mbedtls_pk_info_t mbedtls_rsaes_oaep_info;
 #endif
 
 #if defined(MBEDTLS_ECP_C)

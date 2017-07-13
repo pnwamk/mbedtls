@@ -543,27 +543,29 @@ static int pk_get_rsapubkey( unsigned char **p,
  *       algorithm               OBJECT IDENTIFIER,
  *       parameters              ANY DEFINED BY algorithm OPTIONAL  }
  */
+
+
 static int pk_get_pk_alg( unsigned char **p,
                           const unsigned char *end,
                           mbedtls_pk_type_t *pk_alg, mbedtls_asn1_buf *params )
 {
     int ret;
     mbedtls_asn1_buf alg_oid;
-
     memset( params, 0, sizeof(mbedtls_asn1_buf) );
 
     if( ( ret = mbedtls_asn1_get_alg( p, end, &alg_oid, params ) ) != 0 )
         return( MBEDTLS_ERR_PK_INVALID_ALG + ret );
 
+
     if( mbedtls_oid_get_pk_alg( &alg_oid, pk_alg ) != 0 )
         return( MBEDTLS_ERR_PK_UNKNOWN_PK_ALG );
 
     /*
-     * No parameters with RSA (only for EC)
-     */
-    if( *pk_alg == MBEDTLS_PK_RSA &&
-            ( ( params->tag != MBEDTLS_ASN1_NULL && params->tag != 0 ) ||
-                params->len != 0 ) )
+    * No parameters with RSA (only for EC)
+    */
+    if(*pk_alg == MBEDTLS_PK_RSA
+        && ((params->tag != MBEDTLS_ASN1_NULL && params->tag != 0) 
+            || params->len != 0 ))
     {
         return( MBEDTLS_ERR_PK_INVALID_ALG );
     }
@@ -611,6 +613,9 @@ int mbedtls_pk_parse_subpubkey( unsigned char **p, const unsigned char *end,
 
 #if defined(MBEDTLS_RSA_C)
     if( pk_alg == MBEDTLS_PK_RSA )
+    {
+        ret = pk_get_rsapubkey( p, end, mbedtls_pk_rsa( *pk ) );
+    } else if ( pk_alg == MBEDTLS_PK_RSAES_OAEP )
     {
         ret = pk_get_rsapubkey( p, end, mbedtls_pk_rsa( *pk ) );
     } else

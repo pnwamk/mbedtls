@@ -177,7 +177,9 @@ static int x509_profile_check_key( const mbedtls_x509_crt_profile *profile,
                                    const mbedtls_pk_context *pk )
 {
 #if defined(MBEDTLS_RSA_C)
-    if( pk_alg == MBEDTLS_PK_RSA || pk_alg == MBEDTLS_PK_RSASSA_PSS )
+    if( pk_alg == MBEDTLS_PK_RSA 
+        || pk_alg == MBEDTLS_PK_RSASSA_PSS 
+        || pk_alg == MBEDTLS_PK_RSAES_OAEP )
     {
         if( mbedtls_pk_get_bitlen( pk ) >= profile->rsa_min_bitlen )
             return( 0 );
